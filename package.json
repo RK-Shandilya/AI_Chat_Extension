@@ -1,0 +1,134 @@
+{
+  "name": "ai-chat",
+  "displayName": "AI_CHAT",
+  "description": "",
+  "version": "0.0.1",
+  "type": "module",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-chat.start",
+        "title": "Start AI Chat",
+        "category": "AI Chat",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "ai-chat.configure",
+        "title": "Configure AI Provider",
+        "category": "AI Chat",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "ai-chat.test",
+        "title": "Test AI Connection",
+        "category": "AI Chat",
+        "icon": "$(debug-alt)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "ai-chat.start",
+          "group": "navigation",
+          "when": "true"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ai-chat.start",
+          "group": "navigation",
+          "when": "true"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "ai-chat.start",
+          "when": "true"
+        },
+        {
+          "command": "ai-chat.configure",
+          "when": "true"
+        },
+        {
+          "command": "ai-chat.test",
+          "when": "true"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "ai-chat.start",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a",
+        "when": "true"
+      }
+    ],
+    "configuration": {
+      "title": "AI Chat Assistant",
+      "properties": {
+        "aiChat.provider": {
+          "type": "string",
+          "enum": [
+            "google",
+            "openai"
+          ],
+          "default": "google",
+          "description": "AI provider to use"
+        },
+        "aiChat.model": {
+          "type": "string",
+          "default": "gemini-1.5-flash",
+          "description": "AI model to use"
+        },
+        "aiChat.maxFileSize": {
+          "type": "number",
+          "default": 5242880,
+          "description": "Maximum file size in bytes (5MB default)"
+        },
+        "aiChat.autoIncludeWorkspace": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically include workspace context for relevant queries"
+        },
+        "aiChat.enableImageAnalysis": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable image analysis for attached image files"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "vscode:prepublish": "npm run compile && cd src/webview/typescript && npm run build",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.101.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@google/genai": "^1.6.0",
+    "@google/generative-ai": "^0.24.1",
+    "dotenv": "^16.5.0",
+    "openai": "^5.7.0"
+  }
+}
