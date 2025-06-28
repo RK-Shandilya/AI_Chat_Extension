@@ -11,7 +11,7 @@ interface AIConfig {
 
 const DEFAULT_CONFIG: AIConfig = {
     provider: 'google',
-    apiKey: process.env.GOOGLE_AI_API_KEY || "AIzaSyAuDRCAwZCPS3FZ6XhWrfQxYjITlcGoaSs",
+    apiKey: process.env.GOOGLE_AI_API_KEY || "",
     model: "gemini-1.5-flash"
 };
 
